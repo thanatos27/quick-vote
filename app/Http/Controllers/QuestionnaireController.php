@@ -17,7 +17,7 @@ class QuestionnaireController extends Controller
     public function index()
     {
         // Get Questionnaires
-        $questionnaire = Questionnaire::paginate(5);
+        $questionnaire = Questionnaire::orderBy('created_at', 'desc')->paginate(5);
 
         return QuestionnaireResource::collection($questionnaire);
     }
@@ -31,7 +31,7 @@ class QuestionnaireController extends Controller
     public function store(Request $request)
     {
         $questionnaire = $request->isMethod('put') ? 
-            Questionnaire::findOrFail($request->questionnaire_id) : new Questionnaire;
+            Questionnaire::findOrFail($request->input('questionnaire_id')) : new Questionnaire;
 
             $questionnaire->id = $request->input('questionnaire_id');
             $questionnaire->title = $request->input('title');

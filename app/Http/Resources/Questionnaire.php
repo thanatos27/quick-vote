@@ -17,7 +17,7 @@ class Questionnaire extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'descriotion' => $this->description,
+            'description' => $this->description,
             'choice_1' => $this->choice_1,
             'choice_2' => $this->choice_2
         ];
