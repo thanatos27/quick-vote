@@ -47378,6 +47378,21 @@ var render = function() {
       _c("h2", [_vm._v("Questionnaires")]),
       _vm._v(" "),
       _c(
+        "h3",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.edit,
+              expression: "edit"
+            }
+          ]
+        },
+        [_vm._v("(Editing)")]
+      ),
+      _vm._v(" "),
+      _c(
         "form",
         {
           staticClass: "mb-3",
@@ -47610,6 +47625,27 @@ var render = function() {
                 }
               },
               [_vm._v("Delete")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.edit && questionnaire.id == _vm.questionnaire_id,
+                    expression: "edit && (questionnaire.id == questionnaire_id)"
+                  }
+                ],
+                staticClass: "btn btn-secondary",
+                on: {
+                  click: function($event) {
+                    _vm.cancelQuestionnaire()
+                  }
+                }
+              },
+              [_vm._v("Cancel")]
             )
           ])
         ])
@@ -47766,18 +47802,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             questionnaires: [],
             questionnaire: {
-                questionnaire_id: '',
                 title: '',
                 description: '',
                 choice_1: '',
                 choice_2: ''
             },
+            questionnaire_id: '',
             pagination: {},
             edit: false
         };
@@ -47874,11 +47912,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         editQuestionnaire: function editQuestionnaire(questionnaire) {
             this.edit = true;
-            this.questionnaire.questionnaire_id = questionnaire.id;
+            this.questionnaire_id = questionnaire.id;
             this.questionnaire.title = questionnaire.title;
             this.questionnaire.description = questionnaire.description;
             this.questionnaire.choice_1 = questionnaire.choice_1;
             this.questionnaire.choice_2 = questionnaire.choice_2;
+        },
+        cancelQuestionnaire: function cancelQuestionnaire() {
+            this.edit = false;
+            this.questionnaire_id = '';
         }
     }
 });

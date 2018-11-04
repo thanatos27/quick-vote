@@ -1,6 +1,7 @@
 <template>
     <div>
         <h2>Questionnaires</h2>
+        <h3 v-show="edit">(Editing)</h3>
         <form @submit.prevent="addQuestionnaire" class="mb-3">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Title"
@@ -41,6 +42,7 @@
                 <hr>
                 <button @click="editQuestionnaire(questionnaire)" class="btn btn-warning">Edit</button>
                 <button @click="deleteQuestionnaire(questionnaire.id)" class="btn btn-danger">Delete</button>
+                <button v-show="edit && (questionnaire.id == questionnaire_id)" @click="cancelQuestionnaire()" class="btn btn-secondary">Cancel</button>
             </div>
         </div>
     </div>
@@ -52,12 +54,12 @@
             return {
                 questionnaires: [],
                 questionnaire: {
-                    questionnaire_id: '',
                     title: '',
                     description: '',
                     choice_1: '',
                     choice_2: ''
-                }, 
+                },
+                questionnaire_id: '',
                 pagination: {},
                 edit: false
             }
@@ -144,11 +146,15 @@
             },
             editQuestionnaire(questionnaire) {
                 this.edit = true;
-                this.questionnaire.questionnaire_id = questionnaire.id;
+                this.questionnaire_id = questionnaire.id;
                 this.questionnaire.title = questionnaire.title;
                 this.questionnaire.description = questionnaire.description;
                 this.questionnaire.choice_1 = questionnaire.choice_1;
                 this.questionnaire.choice_2 = questionnaire.choice_2;
+            },
+            cancelQuestionnaire() {
+                this.edit = false;
+                this.questionnaire_id = '';
             }
         }
     }
